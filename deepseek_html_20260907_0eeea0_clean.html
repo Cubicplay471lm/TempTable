@@ -1,0 +1,3251 @@
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+
+    <title>Temp Mail - Free Disposable Temporary Email</title>
+    <meta name="description"
+        content="Protect your personal email from spam and stay secure with a disposable temporary email address!" />
+    <meta name="keywords"
+        content="temp mail, temporary email, disposable email, burner email, fake email generator, anonymous email" />
+    <link rel="canonical" href="https://tempamail.com/">
+    <meta property="og:title" content="Temp Mail - Free Disposable Temporary Email">
+    <meta property="og:description"
+        content="Protect your personal email from spam and stay secure with a disposable temporary email address!">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://tempamail.com/">
+    <meta property="og:site_name" content="Temp Mail">
+    <meta property="og:locale" content="en_US">
+    <meta name="google-play-app" content="app-id=com.tempamail">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #060a13;
+            --bg-card: rgba(12, 18, 32, 0.9);
+            --bg-card-hover: rgba(18, 26, 44, 0.95);
+            --border: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(99, 140, 255, 0.15);
+            --accent: #638cff;
+            --accent-soft: rgba(99, 140, 255, 0.12);
+            --accent-glow: rgba(99, 140, 255, 0.25);
+            --green: #4ade80;
+            --green-soft: rgba(74, 222, 128, 0.1);
+            --red: #f87171;
+            --red-soft: rgba(248, 113, 113, 0.08);
+            --yellow: #fbbf24;
+            --text: rgba(255, 255, 255, 0.85);
+            --text-secondary: rgba(255, 255, 255, 0.45);
+            --text-muted: rgba(255, 255, 255, 0.15);
+            --radius: 18px;
+            --radius-sm: 12px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(99, 140, 255, 0.06), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            right: -20%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.04), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== Main Container ===== */
+        .app {
+            width: 100%;
+            max-width: 680px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== View Switcher ===== */
+        .view-switch {
+            display: flex;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 5px;
+            margin: 0 auto 24px;
+            width: fit-content;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .view-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 9px 28px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+
+        .view-btn:hover {
+            color: var(--text);
+        }
+
+        .view-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow:
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+            overflow: hidden;
+            transition: box-shadow 0.4s;
+        }
+
+        .glass-card:hover {
+            box-shadow:
+                0 8px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+        }
+
+        /* ===== Email Address Display ===== */
+        .email-display {
+            padding: 28px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(99, 140, 255, 0.04) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .email-display .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .email-address {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            word-break: break-all;
+            padding: 14px 20px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .email-address::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 140, 255, 0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .email-address:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 20px var(--accent-soft);
+        }
+
+        .email-address:hover::before {
+            opacity: 1;
+        }
+
+        .email-address.loading {
+            color: var(--text-muted);
+        }
+
+        /* ===== Action Buttons ===== */
+        .actions {
+            display: flex;
+            gap: 8px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .actions .btn {
+            flex: 1;
+            padding: 11px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+        .actions .btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .actions .btn:active {
+            transform: scale(0.96);
+        }
+
+        .actions .btn svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .actions .btn.primary {
+            background: var(--accent-soft);
+            border-color: rgba(99, 140, 255, 0.15);
+            color: var(--accent);
+        }
+
+        .actions .btn.primary:hover {
+            background: rgba(99, 140, 255, 0.18);
+            border-color: rgba(99, 140, 255, 0.25);
+        }
+
+        .actions .btn.danger {
+            background: var(--red-soft);
+            border-color: rgba(248, 113, 113, 0.1);
+            color: var(--red);
+        }
+
+        .actions .btn.danger:hover {
+            background: rgba(248, 113, 113, 0.15);
+            border-color: rgba(248, 113, 113, 0.2);
+        }
+
+        /* ===== Inbox Header ===== */
+        .inbox-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .inbox-header h2 {
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inbox-header .count {
+            font-size: 11px;
+            font-weight: 500;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .inbox-header .refresh-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .inbox-header .refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+        }
+
+        .inbox-header .refresh-btn:active {
+            transform: scale(0.9);
+        }
+
+        .inbox-header .refresh-btn.syncing svg {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== Messages List ===== */
+        .messages {
+            max-height: 420px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        .msg {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .msg::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            border-radius: 0 3px 3px 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .msg:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .msg.unread {
+            background: rgba(99, 140, 255, 0.03);
+        }
+
+        .msg.unread::before {
+            opacity: 1;
+        }
+
+        .msg .msg-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .msg .msg-from {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 0;
+        }
+
+        .msg .msg-from .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .msg .msg-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .msg .msg-subject {
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ===== Empty State ===== */
+        .empty {
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .empty .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .empty p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== Message Viewer ===== */
+        .viewer {
+            border-top: 1px solid var(--border);
+        }
+
+        .viewer-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .viewer-top .back {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .viewer-top .back:hover {
+            opacity: 0.7;
+        }
+
+        .viewer-top .title {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .viewer-top .del {
+            background: var(--red-soft);
+            border: 1px solid rgba(248, 113, 113, 0.1);
+            color: var(--red);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .viewer-top .del:hover {
+            background: rgba(248, 113, 113, 0.15);
+        }
+
+        .viewer-sender {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .viewer-sender .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-soft), rgba(139, 92, 246, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .viewer-sender .info {
+            min-width: 0;
+        }
+
+        .viewer-sender .name {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .viewer-sender .email {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .viewer-subject {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .viewer-body {
+            padding: 16px 20px;
+            min-height: 200px;
+        }
+
+        .viewer-body iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== Dialogs ===== */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: rgba(14, 20, 36, 0.98);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            width: 100%;
+            max-width: 420px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-top h3 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .modal-top .close {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-secondary);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .modal-top .close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+
+        .modal .hint {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        /* ===== Email Input ===== */
+        .email-input {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .email-input:focus-within {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 16px var(--accent-soft);
+        }
+
+        .email-input input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            padding: 10px 14px;
+            text-align: right;
+            outline: none;
+        }
+
+        .email-input input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .email-input .domain {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            padding: 0 14px;
+            white-space: nowrap;
+        }
+
+        /* ===== Domain Badges ===== */
+        .domains {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            max-height: 140px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .domain-badge {
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .domain-badge:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .domain-badge.active {
+            background: var(--accent-soft);
+            border-color: rgba(99, 140, 255, 0.2);
+            color: var(--accent);
+        }
+
+        /* ===== Modal Buttons ===== */
+        .modal-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-btns .btn {
+            padding: 13px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s;
+        }
+
+        .modal-btns .btn:active {
+            transform: scale(0.97);
+        }
+
+        .modal-btns .btn.accent {
+            background: linear-gradient(135deg, rgba(99, 140, 255, 0.15), rgba(139, 92, 246, 0.1));
+            border-color: rgba(99, 140, 255, 0.2);
+            color: var(--accent);
+        }
+
+        .modal-btns .btn.accent:hover {
+            background: linear-gradient(135deg, rgba(99, 140, 255, 0.22), rgba(139, 92, 246, 0.16));
+            border-color: rgba(99, 140, 255, 0.3);
+        }
+
+        .modal-btns .btn.ghost {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+        }
+
+        .modal-btns .btn.ghost:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .modal-btns .btn.red {
+            background: var(--red-soft);
+            border-color: rgba(248, 113, 113, 0.12);
+            color: var(--red);
+        }
+
+        .modal-btns .btn.red:hover {
+            background: rgba(248, 113, 113, 0.14);
+        }
+
+        /* ===== Email List in Dialog ===== */
+        .email-list {
+            max-height: 360px;
+            overflow-y: auto;
+        }
+
+        .email-list-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .email-list-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .email-list-item.selected {
+            border-color: rgba(99, 140, 255, 0.15);
+            background: var(--accent-soft);
+        }
+
+        .email-list-item .el-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(99, 140, 255, 0.1), rgba(139, 92, 246, 0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .email-list-item .el-text {
+            flex: 1;
+            min-width: 0;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .email-list-item .el-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-list-item.selected .el-check {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .email-list-item.selected .el-check::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* ===== Toast ===== */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 22px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 200;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            animation: toastUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        .toast.success {
+            background: rgba(10, 18, 12, 0.92);
+            border: 1px solid rgba(74, 222, 128, 0.15);
+            color: var(--green);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(74, 222, 128, 0.06);
+        }
+
+        .toast.error {
+            background: rgba(18, 10, 10, 0.92);
+            border: 1px solid rgba(248, 113, 113, 0.15);
+            color: var(--red);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(248, 113, 113, 0.06);
+        }
+
+        @keyframes toastUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(16px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+
+        /* ===== Spinner ===== */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        /* ===== Key Row (under email) ===== */
+        .key-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 14px;
+        }
+
+        .key-link {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .key-link:hover {
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .key-sep {
+            color: var(--text-muted);
+        }
+
+        /* ===== Key Box (share) ===== */
+        .mono {
+            font-family: 'Cascadia Code', 'SF Mono', Consolas, monospace;
+        }
+
+        .key-box {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 14px 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .key-box:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 16px var(--accent-soft);
+        }
+
+        .key-box-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .key-box-value {
+            display: block;
+            font-size: 12px;
+            word-break: break-all;
+            color: var(--accent);
+            line-height: 1.5;
+        }
+
+        .key-box-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .key-box:hover .key-box-copy {
+            color: var(--accent);
+        }
+
+        /* ===== Key List (management) ===== */
+        .key-list {
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
+        }
+
+        .key-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 14px;
+            transition: all 0.2s;
+        }
+
+        .key-item.active {
+            border-color: rgba(99, 140, 255, 0.2);
+            background: var(--accent-soft);
+        }
+
+        .key-item .ki-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key-item .ki-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .key-item.active .ki-icon {
+            color: var(--accent);
+            background: rgba(99, 140, 255, 0.12);
+        }
+
+        .key-item .ki-uuid {
+            flex: 1;
+            font-size: 12px;
+            color: var(--text);
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .key-item .ki-now {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            background: rgba(99, 140, 255, 0.12);
+            padding: 2px 8px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .key-item .ki-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin: 6px 0 8px;
+            padding-left: 34px;
+        }
+
+        .key-item .ki-actions {
+            display: flex;
+            gap: 6px;
+            padding-left: 34px;
+            flex-wrap: wrap;
+        }
+
+        .key-item .ki-actions button {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .key-item .ki-actions button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+        }
+
+        .key-item .ki-actions button.danger {
+            color: var(--red);
+            background: transparent;
+            border-color: rgba(248, 113, 113, 0.15);
+        }
+
+        .key-item .ki-actions button.danger:hover {
+            background: var(--red-soft);
+        }
+
+        .key-item .ki-actions button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* ===== Key Import Input ===== */
+        .key-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .key-input input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 13px;
+            padding: 10px 12px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .key-input input:focus {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 12px var(--accent-soft);
+        }
+
+        .key-input input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .key-input button {
+            flex-shrink: 0;
+            border: 1px solid rgba(99, 140, 255, 0.2);
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .key-input button:hover {
+            background: rgba(99, 140, 255, 0.2);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 540px) {
+            body {
+                padding: 10px;
+                align-items: center;
+                padding-top: 20px;
+            }
+
+            .email-display {
+                padding: 20px 16px;
+            }
+
+            .email-address {
+                font-size: 17px;
+                padding: 12px 14px;
+            }
+
+            .actions {
+                padding: 12px 14px;
+                gap: 6px;
+            }
+
+            .actions .btn {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+
+            .viewer-body iframe {
+                height: 300px;
+            }
+
+            .modal {
+                padding: 20px;
+            }
+
+            .view-switch {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .view-btn {
+                flex: 1;
+                padding: 9px 12px;
+                font-size: 13px;
+            }
+        }
+
+        /* ===== Users Table (scoped dark) ===== */
+        #users-app {
+            width: 100%;
+            max-width: 100%;
+            margin-top: 28px;
+            color: var(--text);
+        }
+
+        #users-app .card {
+            padding: 28px 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        #users-app h1 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        #users-app .sub {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            border-left: 4px solid var(--accent);
+            padding-left: 16px;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        #users-app .sub strong {
+            color: var(--text);
+        }
+
+        #users-app .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px 18px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            align-items: flex-end;
+            border: 1px solid var(--border);
+        }
+
+        #users-app .field {
+            flex: 1 0 120px;
+            min-width: 100px;
+        }
+
+        #users-app .field label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        #users-app .field input,
+        #users-app .field select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.93rem;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            font-family: inherit;
+            transition: 0.15s;
+        }
+
+        #users-app .field select option {
+            background: #0c1220;
+            color: var(--text);
+        }
+
+        #users-app .field input:focus,
+        #users-app .field select:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        #users-app .field input.invalid {
+            border-color: var(--red);
+            background: var(--red-soft);
+        }
+
+        #users-app .field-checkbox {
+            flex: 0 0 auto;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+        }
+
+        #users-app .field-checkbox label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #users-app .field-checkbox input[type="checkbox"],
+        #users-app .checkbox-cell input[type="checkbox"],
+        #users-app .filter-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        #users-app .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 6px;
+            padding: 0;
+            border-bottom: none;
+        }
+
+        #users-app .actions .btn {
+            flex: 0 0 auto;
+        }
+
+        #users-app .btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.88rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        #users-app .btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        #users-app .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        #users-app .btn-primary:hover {
+            background: #4f7bff;
+        }
+
+        #users-app .btn-outline {
+            background: transparent;
+            border-color: var(--border);
+        }
+
+        #users-app .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        #users-app .btn-danger {
+            background: var(--red-soft);
+            border-color: rgba(248, 113, 113, 0.25);
+            color: var(--red);
+        }
+
+        #users-app .btn-danger:hover {
+            background: rgba(248, 113, 113, 0.18);
+        }
+
+        #users-app .btn-success {
+            background: var(--green-soft);
+            border-color: rgba(74, 222, 128, 0.25);
+            color: var(--green);
+        }
+
+        #users-app .btn-success:hover {
+            background: rgba(74, 222, 128, 0.18);
+        }
+
+        #users-app .btn-purple {
+            background: rgba(167, 139, 250, 0.1);
+            border-color: rgba(167, 139, 250, 0.25);
+            color: #c4b5fd;
+        }
+
+        #users-app .btn-purple:hover {
+            background: rgba(167, 139, 250, 0.18);
+        }
+
+        #users-app .btn-orange {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.25);
+            color: #fcd34d;
+        }
+
+        #users-app .btn-orange:hover {
+            background: rgba(251, 191, 36, 0.18);
+        }
+
+        #users-app .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        #users-app .toolbar .btn {
+            font-size: 0.82rem;
+            padding: 8px 16px;
+        }
+
+        #users-app .toolbar .toolbar-hint {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        #users-app .toolbar .toolbar-sep {
+            width: 1px;
+            height: 26px;
+            background: var(--border);
+        }
+
+        #users-app .filter-label {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        #users-app .folder-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        #users-app .file-input-hidden {
+            display: none;
+        }
+
+        #users-app .table-wrap {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        #users-app table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            min-width: 950px;
+        }
+
+        #users-app th {
+            text-align: left;
+            padding: 14px 16px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            font-weight: 600;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        #users-app td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            word-break: break-word;
+        }
+
+        #users-app tr:last-child td {
+            border-bottom: none;
+        }
+
+        #users-app .user-email {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        #users-app .badge {
+            border-radius: 40px;
+            padding: 4px 14px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: 0.15s;
+            user-select: none;
+        }
+
+        #users-app .badge:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        #users-app .badge-legit {
+            background: var(--green-soft);
+            color: var(--green);
+        }
+
+        #users-app .badge-raider {
+            background: var(--red-soft);
+            color: var(--red);
+        }
+
+        #users-app .badge-alive {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        #users-app .badge-banned {
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--yellow);
+        }
+
+        #users-app .note-input {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            width: 100%;
+            min-width: 80px;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            transition: 0.15s;
+        }
+
+        #users-app .note-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        #users-app .note-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        #users-app .copy-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.15s;
+            color: var(--text-secondary);
+            margin: 0 4px 4px 0;
+            font-family: inherit;
+        }
+
+        #users-app .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text);
+        }
+
+        #users-app .copy-btn.delete {
+            background: var(--red-soft);
+            border-color: rgba(248, 113, 113, 0.25);
+            color: var(--red);
+        }
+
+        #users-app .checkbox-cell {
+            text-align: center;
+        }
+
+        #users-app .empty-msg {
+            text-align: center;
+            padding: 40px 10px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        #users-app .footer-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+            gap: 14px;
+        }
+
+        #users-app .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #users-app .filter-group select {
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+        #users-app .filter-group select option {
+            background: #0c1220;
+        }
+
+        #users-app .filter-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        #users-app .count-badge {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        #tableToast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 10px 20px;
+            border-radius: 14px;
+            font-size: 0.86rem;
+            font-weight: 500;
+            background: rgba(12, 18, 32, 0.95);
+            border: 1px solid var(--accent-glow);
+            color: var(--text);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: 0.25s;
+            pointer-events: none;
+            z-index: 300;
+        }
+
+        #tableToast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 540px) {
+            #users-app .card {
+                padding: 20px 14px;
+            }
+
+            #users-app .field {
+                flex: 1 0 100%;
+            }
+
+            #users-app .field-checkbox {
+                flex: 1 0 100%;
+            }
+
+            #tableToast {
+                right: 14px;
+                left: 14px;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dexie@4.0.10/dist/dexie.min.js"></script>
+</head>
+
+<body>
+
+    <div class="view-switch">
+        <button class="view-btn active" data-view="mail">Почта</button>
+        <button class="view-btn" data-view="users">Таблица</button>
+    </div>
+
+    <div id="app" class="app">
+
+        <div class="glass-card">
+
+            <!-- Email Display -->
+            <div class="email-display">
+                <div class="label">Твоя почта для стима</div>
+		<div class="label">     _______
+					      /
+					     /
+					    /
+					   /
+					  /
+					 /
+					/_____
+		</div>
+                <div class="email-address"
+                    :class="{ loading: !selectedEmail }"
+                    @click="utils.email.copy()"
+                    v-text="selectedEmail ? `${selectedEmail.alias}@${selectedEmail.domain_name}` : 'Loading...'">
+                </div>
+                <div class="key-row" :style="{ opacity: uuid ? 1 : 0.4, 'pointer-events': uuid ? 'auto' : 'none' }">
+                    <button class="key-link" @click="utils.key.openShare()">Поделиться ключом</button>
+                    <span class="key-sep">·</span>
+                    <button class="key-link" @click="utils.key.openKeys()">Мои ключи ({{ identities.length }})</button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions" :style="{ opacity: uuid ? 1 : 0.4, 'pointer-events': uuid ? 'auto' : 'none' }">
+                <button class="btn primary" @click="utils.email.copy()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Скапирават
+                </button>
+                <button class="btn" @click="utils.email.openCreateDialog()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    нова
+                </button>
+                <button class="btn" @click="activeDialog = 'emails'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                    Галя замена
+                </button>
+                <button class="btn danger" @click="confirmationDialog = { visible: true, type: 'delete_email' }">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    Галя отмена
+                </button>
+            </div>
+
+            <!-- Inbox Section -->
+            <template v-if="!messageToShow">
+                <div class="inbox-header">
+                    <h2>
+                        входящие
+                        <span v-if="messages.length" class="count">{{ messages.length }}</span>
+                    </h2>
+                    <button class="refresh-btn" :class="{ syncing: syncingMessages }" @click="callApi.MESSAGES()" :disabled="!uuid">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    </button>
+                </div>
+
+                <div class="messages">
+                    <!-- Messages -->
+                    <template v-if="messages.length">
+                        <div v-for="message in messages" :key="message.id"
+                            class="msg" :class="{ unread: !message.is_seen }"
+                            @click="utils.message.show(message)">
+                            <div class="msg-top">
+                                <div class="msg-from">
+                                    <span v-if="!message.is_seen" class="dot"></span>
+                                    {{ utils.parseFrom(message.from).name || utils.parseFrom(message.from).address || 'Unknown' }}
+                                </div>
+                                <div class="msg-time">{{ utils.timeAgo(message.created_at, 'en') }}</div>
+                            </div>
+                            <div class="msg-subject">{{ message.subject || 'No subject' }}</div>
+                        </div>
+                    </template>
+
+                    <!-- Empty -->
+                    <div v-else class="empty">
+                        <div class="icon">&#9993;</div>
+                        <p>Ожидаем сахура или совушку...</p>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Message Viewer -->
+            <template v-if="messageToShow">
+                <div class="viewer">
+                    <div class="viewer-top">
+                        <button class="back" @click="messageToShow = null">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                            обартно
+                        </button>
+                        <span class="title">{{ messageToShow.subject }}</span>
+                        <button class="del" @click="confirmationDialog = { visible: true, type: 'delete_message' }">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="viewer-sender">
+                        <div class="avatar">{{ (utils.parseFrom(messageToShow.from).name || '?')[0].toUpperCase() }}</div>
+                        <div class="info">
+                            <div class="name">{{ utils.parseFrom(messageToShow.from).name || 'Unknown' }}</div>
+                            <div class="email">{{ utils.parseFrom(messageToShow.from).address }}</div>
+                        </div>
+                    </div>
+
+                    <div class="viewer-subject">{{ messageToShow.subject }}</div>
+
+                    <div class="viewer-body">
+                        <iframe :srcdoc="messageToShow.body"></iframe>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
+        <!-- ===== DIALOGS ===== -->
+
+        <!-- Switch Account -->
+        <div v-if="activeDialog === 'emails'" class="overlay" @click.self="activeDialog = null">
+            <div class="modal">
+                <div class="modal-top">
+                    <h3>Замена каллкаунтов</h3>
+                    <button class="close" @click="activeDialog = null">&times;</button>
+                </div>
+                <div class="email-list">
+                    <div v-for="email in emails" :key="email.id"
+                        class="email-list-item"
+                        :class="{ selected: selectedEmail?.id === email.id }"
+                        @click="utils.email.select(email.id)">
+                        <div class="el-avatar">{{ email.alias[0].toUpperCase() }}</div>
+                        <div class="el-text">{{ email.alias }}@{{ email.domain_name }}</div>
+<div class="el-check"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Share Key -->
+        <div v-if="shareDialog.visible" class="overlay" @click.self="shareDialog.visible = false">
+            <div class="modal">
+                <div class="modal-top">
+                    <h3>Поделиться ключом</h3>
+                    <button class="close" @click="shareDialog.visible = false">&times;</button>
+                </div>
+                <div class="hint">Любой, у кого есть этот ключ, сможет открыть твою почту.</div>
+
+                <div class="key-box" @click="utils.key.copy(uuid)">
+                    <span class="key-box-label">Ключ доступа (UUID)</span>
+                    <span class="key-box-value mono">{{ uuid }}</span>
+                    <span class="key-box-copy">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Нажми, чтобы скопировать
+                    </span>
+                </div>
+
+                <div class="modal-btns" style="margin-top:16px;">
+                    <button class="btn accent" @click="utils.key.copy(uuid)">Копировать ключ</button>
+                    <button class="btn ghost" @click="shareDialog.visible = false">Закрыть</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Email -->
+        <div v-if="activeDialog === 'create_email'" class="overlay" @click.self="activeDialog = null">
+            <div class="modal">
+                <div class="modal-top">
+                    <h3>Создат нью</h3>
+                    <button class="close" @click="activeDialog = null">&times;</button>
+                </div>
+                <div class="hint">Либо сова либо сахур</div>
+
+                <div class="email-input" onclick="this.querySelector('input').focus()">
+                    <input type="text" placeholder="username" autocomplete="off" autocorrect="off" spellcheck="false" v-model="aliasToCreate" />
+                    <span class="domain">{{ '@' + (selectedDomain ? selectedDomain.name : '...') }}</span>
+                </div>
+
+                <div class="domains" v-if="domains.length">
+                    <span v-for="domain in domains" :key="domain.id"
+                        class="domain-badge"
+                        :class="{ active: selectedDomain?.id === domain.id }"
+                        @click="selectedDomain = domain">
+                        {{ domain.name }}
+                    </span>
+                </div>
+                <div v-else style="text-align:center;padding:20px 0;">
+                    <div class="spinner" style="margin:0 auto;"></div>
+                </div>
+
+                <div class="modal-btns">
+                    <button class="btn accent" @click="utils.email.createCustom()">Create Email</button>
+                    <button class="btn ghost" @click="callApi.EMAIL_RANDOM()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg>
+                        Рандомавая создания
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keys Management -->
+        <div v-if="keysDialog.visible" class="overlay" @click.self="keysDialog.visible = false">
+            <div class="modal">
+                <div class="modal-top">
+                    <h3>Мои ключи</h3>
+                    <button class="close" @click="keysDialog.visible = false">&times;</button>
+                </div>
+                <div class="hint">Каждый ключ открывает свою почту. Делись ключом — получай доступ к одной почте с друзьями.</div>
+
+                <div class="key-list">
+                    <div v-for="acc in identities" :key="acc.uuid"
+                        class="key-item" :class="{ active: acc.uuid === uuid }">
+                        <div class="ki-head">
+                            <span class="ki-icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                            </span>
+                            <span class="ki-uuid mono">{{ utils.maskUuid(acc.uuid) }}</span>
+                            <span v-if="acc.uuid === uuid" class="ki-now">сейчас</span>
+                        </div>
+                        <div class="ki-sub">Создан: {{ utils.formatDate(acc.created_at) }}</div>
+                        <div class="ki-actions">
+                            <button @click="utils.key.copy(acc.uuid)">Копировать</button>
+                            <button v-if="acc.uuid !== uuid" @click="utils.key.select(acc.uuid)">Открыть</button>
+                            <button class="danger" @click="utils.key.confirmDelete(acc.uuid)"
+                                :disabled="identities.length === 1">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="importKeyVisible" class="key-input" style="margin-top:14px;">
+                    <input type="text" placeholder="Вставь чужой ключ (UUID)" spellcheck="false" v-model="importKeyInput" @keyup.enter="utils.key.importKey()" />
+                    <button @click="utils.key.importKey()">Импорт</button>
+                </div>
+                <div class="hint" v-if="importKeyVisible" style="margin-top:8px;">Так ты откроешь почту, которой с тобой поделились.</div>
+
+                <div class="modal-btns" style="margin-top:16px;">
+                    <button class="btn accent" @click="utils.key.createNew()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Новый ключ
+                    </button>
+                    <button class="btn ghost" @click="importKeyVisible = !importKeyVisible">{{ importKeyVisible ? 'Скрыть импорт' : 'Импортировать чужой ключ' }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div v-if="confirmationDialog.visible" class="overlay" @click.self="confirmationDialog.visible = false">
+            <div class="modal">
+                <div class="modal-top">
+                    <h3>{{ confirmationDialog.type === 'delete_email' ? 'Удалить почту?' : (confirmationDialog.type === 'delete_message' ? 'Удалить письмо?' : 'Удалить ключ?') }}</h3>
+                    <button class="close" @click="confirmationDialog.visible = false">&times;</button>
+                </div>
+                <div class="hint" style="margin-bottom:20px;">
+                    {{ confirmationDialog.type === 'delete_email' ? 'Все письма будут удалены безвозвратно.' : (confirmationDialog.type === 'delete_message' ? 'Письмо будет удалено безвозвратно.' : 'Ключ будет удалён вместе со всей его почтой.') }}
+                </div>
+                <div class="modal-btns">
+                    <button class="btn red" @click="confirmationDialog.type === 'delete_email' ? utils.email.delete() : (confirmationDialog.type === 'delete_message' ? utils.message.delete() : utils.key.delete())">Удалитса</button>
+                    <button class="btn ghost" @click="confirmationDialog.visible = false">Закрытса</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div v-if="progressDialog.visible" class="overlay">
+            <div class="modal" style="text-align:center;max-width:280px;">
+                <div v-if="progressDialog.type === 'success'" style="font-size:40px;margin-bottom:8px;">&#10003;</div>
+                <div v-else-if="progressDialog.type === 'error'" style="font-size:40px;margin-bottom:8px;color:var(--red);">&#10007;</div>
+                <div v-else class="spinner" style="margin:8px auto;"></div>
+                <div style="font-size:14px;font-weight:500;color:var(--text-secondary);margin-top:4px;">{{ progressDialog.message }}</div>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" :class="{ show: progressDialog.visible && (progressDialog.type === 'success' || progressDialog.type === 'error'), [progressDialog.type]: true }">
+            {{ progressDialog.message }}
+        </div>
+
+    </div>
+
+
+    <script>
+        const { createApp, ref, computed } = Vue;
+
+        let verified = false;
+        const uuid = ref(null);
+        const refId = ref(null);
+        const type = ref(0);
+        const knownMessageId = ref(0);
+
+        const selectedEmail = ref(null);
+        const emails = ref([]);
+        const messages = ref([]);
+        const domains = ref([]);
+
+        const aliasToCreate = ref(null);
+        const selectedDomain = ref(null);
+        const messageToShow = ref(null);
+
+        const identities = ref([]);
+        const shareDialog = ref({ visible: false });
+        const keysDialog = ref({ visible: false });
+        const importKeyVisible = ref(false);
+        const importKeyInput = ref('');
+        const keyToDelete = ref(null);
+        const creatingKey = ref(false);
+
+        //=================== DB Service ========================//
+
+        const db = new Dexie("tempamail");
+
+        function initDB() {
+            db.version(2).stores({
+                data: 'key, value',
+                emails: 'id, alias, domain_name, type, created_at, is_expired, uuid',
+                messages: 'id, email_id, created_at, uuid, [uuid+email_id]',
+                identities: 'uuid, ref_id, created_at, last_used_at',
+            });
+            initLiveQueries();
+
+            db.data.where('key').equals('uuid').first().then(row => {
+                const u = row?.value;
+                if (!u) return;
+                Promise.all([
+                    db.emails.filter(e => !e.uuid).modify({ uuid: u }),
+                    db.messages.filter(m => !m.uuid).modify({ uuid: u }),
+                ]);
+                db.identities.get(u).then(ex => {
+                    if (!ex) db.identities.put({ uuid: u, ref_id: refId.value, created_at: Date.now(), last_used_at: Date.now() });
+                });
+            });
+        }
+
+        function initLiveQueries() {
+            Dexie.liveQuery(() => db.data.where('key').equals('uuid').first()).subscribe(result => {
+                if (messageSyncInterval) clearInterval(messageSyncInterval);
+                uuid.value = result ? result.value : null;
+                if (uuid.value === null) {
+                    callApi.CLIENT_CREATE();
+                } else {
+                    db.identities.get(uuid.value).then(ex => {
+                        if (!ex) db.identities.put({ uuid: uuid.value, ref_id: refId.value, created_at: Date.now(), last_used_at: Date.now() });
+                    });
+                    messageSyncInterval = setInterval(syncMessages, 15000);
+                    syncMessages();
+                }
+            });
+
+            Dexie.liveQuery(async () => {
+                const row = await db.data.where('key').equals('uuid').first();
+                const u = row?.value || null;
+                return u ? db.emails.where('uuid').equals(u).reverse().toArray() : [];
+            }).subscribe(result => emails.value = result);
+
+            Dexie.liveQuery(async () => {
+                const uuidRow = await db.data.where('key').equals('uuid').first();
+                const u = uuidRow?.value || null;
+                const selRow = await db.data.where('key').equals('selected_email_id').first();
+                const emailsRows = u ? await db.emails.where('uuid').equals(u).reverse().toArray() : [];
+                const email = selRow?.value && emailsRows.length
+                    ? (emailsRows.find(e => e.id === selRow.value) || emailsRows[0])
+                    : emailsRows[0];
+                const msgs = (email && u)
+                    ? await db.messages.where('[uuid+email_id]').equals([u, email.id]).reverse().toArray()
+                    : [];
+                return { email, msgs };
+            }).subscribe(({ email, msgs }) => {
+                selectedEmail.value = email;
+                messages.value = msgs;
+            });
+
+            Dexie.liveQuery(() => db.data.where('key').equals('known_message_id').first()).subscribe(result => {
+                knownMessageId.value = result ? result.value : 0;
+            });
+
+            Dexie.liveQuery(() => db.data.where('key').equals('type').first()).subscribe(result => {
+                type.value = result ? result.value : 0;
+            });
+
+            Dexie.liveQuery(() => db.identities.orderBy('last_used_at').reverse().toArray())
+                .subscribe(result => identities.value = result);
+        }
+
+        //==================== Api Service =======================//
+
+        function getUrl(route) {
+            const baseUrl = "https://api.tempamail.com/webapp";
+            const endpoints = {
+                CLIENT_CREATE: "/client/create",
+                CLIENT: "/client",
+                EMAIL_RANDOM: "/email/random",
+                EMAIL_CUSTOM: "/email/custom",
+                EMAIL_DELETE: "/email/delete",
+                MESSAGES: "/messages",
+                DOMAINS: "/domains",
+            };
+            return `${baseUrl}${endpoints[route]}`;
+        }
+
+        function getBody(route) {
+            const payloads = {
+                CLIENT_CREATE: { app_uuid: "a5x-cj6a-ka1q" },
+                CLIENT: {
+                    uuid: uuid.value,
+                    selected_email_id: selectedEmail.value?.id,
+                    known_message_id: knownMessageId.value
+                },
+                EMAIL_RANDOM: { uuid: uuid.value },
+                EMAIL_CUSTOM: {
+                    uuid: uuid.value,
+                    alias: aliasToCreate.value,
+                    domain_id: selectedDomain.value?.id
+                },
+                EMAIL_DELETE: {
+                    uuid: uuid.value,
+                    selected_email_id: selectedEmail.value?.id
+                },
+                MESSAGES: {
+                    uuid: uuid.value,
+                    selected_email_id: selectedEmail.value?.id,
+                    known_message_id: knownMessageId.value
+                },
+                DOMAINS: { uuid: uuid.value },
+            };
+            return payloads[route];
+        }
+
+        const callApi = ['CLIENT_CREATE', 'CLIENT', 'EMAIL_RANDOM', 'EMAIL_CUSTOM', 'EMAIL_DELETE', 'MESSAGES', 'DOMAINS']
+            .reduce((apiMethods, name) => {
+                apiMethods[name] = () => makeApiCall(name);
+                return apiMethods;
+            }, {});
+
+        const activeApiCalls = new Set();
+
+        function makeApiCall(route) {
+            if (activeApiCalls.has(route)) return;
+            activeApiCalls.add(route);
+
+            if (['CLIENT', 'MESSAGES'].includes(route)) {
+                syncingMessages.value = true
+            }
+            if (['EMAIL_RANDOM', 'EMAIL_CUSTOM', 'EMAIL_DELETE'].includes(route)) {
+                if (navigator.onLine) setProgressState.PROCESSING()
+                else setProgressState.NO_NET()
+            }
+
+            if (!navigator.onLine) {
+                if (['CLIENT', 'MESSAGES'].includes(route)) {
+                    setTimeout(() => (syncingMessages.value = false), 500)
+                }
+                activeApiCalls.delete(route)
+                return
+            }
+
+            fetch(getUrl(route), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(getBody(route)).toString()
+            }).then(response => {
+                if (response.ok) response.json().then(json => handleResSuccess(route, json))
+                else handleResFailed(route, response.status)
+            }).catch(error => {
+                if (route === 'MESSAGES') return
+                if (navigator.onLine) setProgressState.ERROR();
+                else setProgressState.NO_NET();
+            }).finally(() => {
+                if (['CLIENT', 'MESSAGES'].includes(route)) {
+                    setTimeout(() => (syncingMessages.value = false), 500)
+                }
+                activeApiCalls.delete(route);
+            });
+        }
+
+        function handleResFailed(route, code) {
+            if (code === 409) {
+                setProgressState.ALIAS_EXISTS();
+                return
+            }
+            setProgressState.ERROR();
+        }
+
+        function handleResSuccess(route, json) {
+            if (json.client) {
+                verified = true;
+                const { uuid: nu, ref_id: nref, type: ntype } = json.client;
+                uuid.value = nu;
+                refId.value = nref;
+                db.data.put({ key: 'uuid', value: nu });
+                db.data.put({ key: 'ref_id', value: nref });
+                db.data.put({ key: 'type', value: ntype });
+                db.identities.get(nu).then(ex => db.identities.put({
+                    uuid: nu,
+                    ref_id: nref,
+                    created_at: ex?.created_at ?? Date.now(),
+                    last_used_at: Date.now(),
+                }));
+            }
+
+            if (json.client_type !== undefined) {
+                verified = true;
+                db.data.put({ key: 'type', value: json.client_type });
+            }
+
+            if (json.email) {
+                db.emails.add({ ...json.email, is_expired: false, uuid: uuid.value })
+                    .then(() => db.data.put({ key: 'selected_email_id', value: json.email.id }))
+                    .then(() => {
+                        if (route === 'CLIENT_CREATE') {
+                            if (creatingKey.value) {
+                                creatingKey.value = false;
+                                setProgressState.KEY_CREATED();
+                            }
+                        } else {
+                            setProgressState.EMAIL_CREATED();
+                            activeDialog.value = null;
+                        }
+                    })
+            }
+
+            if (json.emails?.length) {
+                db.emails.bulkPut(json.emails.map(e => ({ ...e, is_expired: false, uuid: uuid.value })));
+            }
+
+            if (json.messages?.length) {
+                db.messages.bulkPut(json.messages.map(msg => ({
+                    ...msg,
+                    attachments: [],
+                    is_seen: false,
+                    uuid: uuid.value,
+                })))
+                    .then(() => db.messages.where('uuid').equals(uuid.value).sortBy('id'))
+                    .then(msgs => msgs.length && db.data.put({ key: 'known_message_id', value: msgs[msgs.length - 1].id }))
+            }
+
+            if (json.deleted_email_id !== undefined) {
+                db.emails.delete(json.deleted_email_id)
+                    .then(() => db.emails.where('uuid').equals(uuid.value).reverse().first())
+                    .then(email => email && db.data.put({ key: 'selected_email_id', value: email.id }))
+                    .then(() => db.messages.where('email_id').equals(json.deleted_email_id).delete())
+                    .then(() => setProgressState.EMAIL_DELETED())
+            }
+
+            if (json.expired_email_ids?.length) {
+                db.emails.where('id').anyOf(json.expired_email_ids).modify({ is_expired: true });
+            }
+
+            if (json.domains?.length) {
+                selectedDomain.value = json.domains[0];
+                domains.value = json.domains;
+            }
+        }
+
+        //==================== Dialog Service =======================//
+
+        const activeDialog = ref(null);
+        const confirmationDialog = ref({ visible: false, type: 'delete_email' });
+        const progressDialog = ref({ visible: false, type: '', message: '' });
+
+        function showProgressDialog(type, message, autoHide = true, delay = 700) {
+            progressDialog.value = { visible: true, type, message };
+            if (autoHide) {
+                setTimeout(() => {
+                    if (progressDialog.value.message === message) {
+                        progressDialog.value.visible = false;
+                    }
+                }, delay);
+            }
+        }
+
+        const setProgressState = {
+            PROCESSING: () => showProgressDialog('processing', 'Processing...', false),
+            COPIED: () => showProgressDialog('success', 'Copied!', true),
+            MESSAGE_DELETED: () => showProgressDialog('success', 'Message deleted', true, 500),
+            EMAIL_CREATED: () => showProgressDialog('success', 'Email created!'),
+            EMAIL_DELETED: () => showProgressDialog('success', 'Email deleted!'),
+            ALIAS_EXISTS: () => showProgressDialog('error', 'Username already taken'),
+            ALIAS_LENGTH_ERROR: () => showProgressDialog('error', 'Username too short'),
+            NO_NET: () => showProgressDialog('error', 'No connection'),
+            ERROR: () => showProgressDialog('error', 'Something went wrong'),
+            KEY_CREATED: () => showProgressDialog('success', 'Новый ключ создан!'),
+            KEY_IMPORTED: () => showProgressDialog('success', 'Ключ импортирован!'),
+            KEY_DELETED: () => showProgressDialog('success', 'Ключ удалён', true, 500),
+        };
+
+        let messageSyncInterval;
+        const syncingMessages = ref(false);
+
+        function syncMessages() {
+            setTimeout(() => {
+                if (!uuid.value) return;
+                if (verified) callApi.MESSAGES();
+                else callApi.CLIENT();
+            }, 150);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === "visible") {
+                syncMessages();
+                messageSyncInterval = setInterval(syncMessages, 15000);
+            } else {
+                clearInterval(messageSyncInterval);
+                messageSyncInterval = null;
+            }
+        });
+
+        // Utils
+
+        const messageUtils = {
+            syncMessages: () => syncMessages(),
+            show(message) {
+                messageToShow.value = message
+                if (message.is_seen) return;
+                db.messages.where('id').equals(message.id).modify({ is_seen: true })
+            },
+            delete() {
+                confirmationDialog.value.visible = false;
+                db.messages.delete(messageToShow.value.id);
+                messageToShow.value = null
+                setProgressState.MESSAGE_DELETED()
+            }
+        };
+
+        const emailUtils = {
+            openCreateDialog() {
+                if (!navigator.onLine) setProgressState.NO_NET()
+                aliasToCreate.value = null
+                if (domains.value.length === 0) callApi.DOMAINS()
+                activeDialog.value = 'create_email';
+                messageToShow.value = null;
+            },
+            createCustom() {
+                const aliasVal = aliasToCreate.value ? aliasToCreate.value.trim() : '';
+                if (aliasVal === '') {
+                    callApi.EMAIL_RANDOM();
+                } else if (aliasVal.length > 4) {
+                    callApi.EMAIL_CUSTOM();
+                } else {
+                    setProgressState.ALIAS_LENGTH_ERROR();
+                }
+            },
+            select(emailId) {
+                activeDialog.value = null;
+                messageToShow.value = null;
+                db.data.put({ key: 'selected_email_id', value: emailId });
+            },
+            delete() {
+                confirmationDialog.value.visible = false;
+                messageToShow.value = null;
+                callApi.EMAIL_DELETE();
+            },
+            copy() {
+                setProgressState.COPIED()
+                try {
+                    const email = `${selectedEmail.value.alias}@${selectedEmail.value.domain_name}`;
+                    navigator.clipboard.writeText(email);
+                } catch (err) {}
+            }
+        };
+
+        function activateUuid(newUuid) {
+            if (!newUuid || newUuid === uuid.value) return;
+            uuid.value = newUuid;
+            selectedEmail.value = null;
+            messages.value = [];
+            return db.identities.get(newUuid).then(existing => Promise.all([
+                db.identities.put({
+                    uuid: newUuid,
+                    ref_id: existing?.ref_id || null,
+                    created_at: existing?.created_at || Date.now(),
+                    last_used_at: Date.now(),
+                }),
+                db.data.put({ key: 'uuid', value: newUuid }),
+                db.data.put({ key: 'known_message_id', value: 0 }),
+                db.data.delete('selected_email_id'),
+                db.data.put({ key: 'ref_id', value: null }),
+            ])).then(() => {
+                verified = false;
+                activeDialog.value = null;
+                keysDialog.value.visible = false;
+                messageToShow.value = null;
+                syncMessages();
+            });
+        }
+
+        const keyUtils = {
+            openShare() {
+                shareDialog.value = { visible: true };
+            },
+            openKeys() {
+                keysDialog.value = { visible: true };
+                importKeyVisible.value = false;
+            },
+            copy(keyValue) {
+                const val = keyValue || uuid.value;
+                if (!val) return;
+                try {
+                    navigator.clipboard.writeText(String(val));
+                } catch (err) {}
+                setProgressState.COPIED();
+            },
+            createNew() {
+                keysDialog.value.visible = false;
+                activeDialog.value = null;
+                creatingKey.value = true;
+                setProgressState.PROCESSING();
+                callApi.CLIENT_CREATE();
+            },
+            importKey() {
+                const raw = importKeyInput.value || '';
+                const val = raw.trim().split(/[\s,;]+/)[0];
+                if (val.length < 8) {
+                    setProgressState.ERROR();
+                    return;
+                }
+                importKeyInput.value = '';
+                importKeyVisible.value = false;
+                setProgressState.KEY_IMPORTED();
+                activateUuid(val);
+            },
+            select(keyValue) {
+                activateUuid(keyValue);
+            },
+            confirmDelete(keyValue) {
+                keyToDelete.value = keyValue;
+                confirmationDialog.value = { visible: true, type: 'delete_key' };
+            },
+            delete() {
+                const k = keyToDelete.value;
+                confirmationDialog.value.visible = false;
+                keyToDelete.value = null;
+                if (!k) return;
+                setProgressState.PROCESSING();
+                Promise.all([
+                    db.identities.delete(k),
+                    db.emails.where('uuid').equals(k).delete(),
+                    db.messages.where('uuid').equals(k).delete(),
+                ]).then(async () => {
+                    keysDialog.value.visible = false;
+                    if (uuid.value === k) {
+                        const next = await db.identities.orderBy('last_used_at').reverse().first();
+                        if (next) {
+                            await activateUuid(next.uuid);
+                        } else {
+                            await db.data.delete('uuid');
+                            await db.data.delete('selected_email_id');
+                            await db.data.delete('known_message_id');
+                            await db.data.delete('ref_id');
+                        }
+                    }
+                    setProgressState.KEY_DELETED();
+                });
+            },
+        };
+
+        //==================== Backup / Restore (mail + keys + users table) =====================//
+
+        let appToastEl = null;
+        function showAppToast(msg) {
+            const el = appToastEl || (appToastEl = document.getElementById('tableToast'));
+            if (!el) return;
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(window.__appToastTimer);
+            window.__appToastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+        }
+
+        function downloadFile(name, content, mime) {
+            const blob = new Blob([content], { type: mime || 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        async function backupEverything() {
+            let users = [];
+            try {
+                const raw = localStorage.getItem('usersTableData');
+                if (raw) users = JSON.parse(raw);
+                if (!Array.isArray(users)) users = [];
+            } catch (e) { users = []; }
+
+            const [keysRow, refRow, typeRow, kRow, selRow] = await Promise.all([
+                db.data.where('key').equals('uuid').first(),
+                db.data.where('key').equals('ref_id').first(),
+                db.data.where('key').equals('type').first(),
+                db.data.where('key').equals('known_message_id').first(),
+                db.data.where('key').equals('selected_email_id').first(),
+            ]);
+
+            const [identities, emails, messages] = await Promise.all([
+                db.identities.toArray(),
+                db.emails.toArray(),
+                db.messages.toArray(),
+            ]);
+
+            const activeUuid = keysRow?.value ?? uuid.value;
+            if (activeUuid && !identities.some(i => i.uuid === activeUuid)) {
+                identities.push({
+                    uuid: activeUuid,
+                    ref_id: refRow?.value ?? null,
+                    created_at: Date.now(),
+                    last_used_at: Date.now(),
+                });
+            }
+
+            const backup = {
+                __type: 'tempamail-keybackup',
+                version: 1,
+                savedAt: new Date().toISOString(),
+                uuid: activeUuid,
+                ref_id: refRow?.value ?? null,
+                type: typeRow?.value ?? 0,
+                known_message_id: kRow?.value ?? 0,
+                selected_email_id: selRow?.value ?? null,
+                keys: identities,
+                emails,
+                messages,
+                users,
+            };
+
+            downloadFile(`backup_tempamail_${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(backup, null, 2), 'application/json');
+            showAppToast(`📤 Бэкап: ключей ${identities.length}, почт ${emails.length}, писем ${messages.length}, записей ${users.length}`);
+        }
+
+        async function restoreBackup(file) {
+            let data;
+            try {
+                data = JSON.parse(await file.text());
+            } catch (e) {
+                showAppToast('⚠️ Не удалось прочитать JSON');
+                return;
+            }
+            if (!data || data.__type !== 'tempamail-keybackup') {
+                showAppToast('⚠️ Это не бэкап tempamail-ключей');
+                return;
+            }
+            const keysCount = Array.isArray(data.keys) ? data.keys.length : 0;
+            const emailsCount = Array.isArray(data.emails) ? data.emails.length : 0;
+            const messagesCount = Array.isArray(data.messages) ? data.messages.length : 0;
+            const usersCount = Array.isArray(data.users) ? data.users.length : 0;
+            if (!confirm(`Импортировать бэкап?\n\nКлючей: ${keysCount}\nПочт: ${emailsCount}\nПисем: ${messagesCount}\nЗаписей таблицы: ${usersCount}\n\nТекущие данные будут заменены.`)) return;
+
+            await db.transaction('rw', db.data, db.identities, db.emails, db.messages, async () => {
+                await db.identities.clear();
+                await db.emails.clear();
+                await db.messages.clear();
+                if (Array.isArray(data.keys) && data.keys.length) await db.identities.bulkPut(data.keys);
+                if (Array.isArray(data.emails) && data.emails.length) await db.emails.bulkPut(data.emails);
+                if (Array.isArray(data.messages) && data.messages.length) await db.messages.bulkPut(data.messages);
+                const restoredUuid = data.uuid ?? null;
+                if (restoredUuid) {
+                    const has = await db.identities.get(restoredUuid);
+                    if (!has) await db.identities.put({
+                        uuid: restoredUuid,
+                        ref_id: data.ref_id ?? null,
+                        created_at: Date.now(),
+                        last_used_at: Date.now(),
+                    });
+                }
+                await db.data.bulkPut([
+                    { key: 'uuid', value: data.uuid ?? null },
+                    { key: 'ref_id', value: data.ref_id ?? null },
+                    { key: 'type', value: data.type ?? 0 },
+                    { key: 'known_message_id', value: data.known_message_id ?? 0 },
+                    { key: 'selected_email_id', value: data.selected_email_id ?? null },
+                ]);
+                if (data.users !== undefined) {
+                    localStorage.setItem('usersTableData', JSON.stringify(Array.isArray(data.users) ? data.users : []));
+                    if (window.renderUsersTable) window.renderUsersTable();
+                }
+            });
+
+            showAppToast('📥 Бэкап загружен. Перезагрузка…');
+            setTimeout(() => location.reload(), 1400);
+        }
+
+        const utils = {
+            email: emailUtils,
+            message: messageUtils,
+            key: keyUtils,
+
+            maskUuid(value) {
+                if (!value) return '';
+                const s = String(value);
+                return s.length > 12 ? `${s.slice(0, 6)}…${s.slice(-4)}` : s;
+            },
+
+            formatDate(ts) {
+                if (!ts) return '';
+                try {
+                    return new Date(ts).toLocaleString('ru-RU', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+                } catch (e) { return ''; }
+            },
+
+            parseFrom(fromVal) {
+                if (!fromVal) return { name: '', address: '' };
+                if (typeof fromVal === 'object') return fromVal;
+                try { return JSON.parse(fromVal); }
+                catch (e) { return { name: '', address: fromVal }; }
+            },
+
+            timeAgo(dateString, lang) {
+                try {
+                    const now = new Date();
+                    const date = new Date(dateString);
+                    const diffInSeconds = Math.floor((now - date) / 1000);
+                    const rtf = new Intl.RelativeTimeFormat(lang, { numeric: 'auto' });
+
+                    if (diffInSeconds < 60) return rtf.format(-diffInSeconds, 'second');
+                    if (diffInSeconds < 3600) return rtf.format(-Math.floor(diffInSeconds / 60), 'minute');
+                    if (diffInSeconds < 86400) return rtf.format(-Math.floor(diffInSeconds / 3600), 'hour');
+                    if (diffInSeconds < 172800) return rtf.format(-Math.floor(diffInSeconds / 86400), 'day');
+                    return new Intl.DateTimeFormat(lang, { day: '2-digit', month: 'short' }).format(date);
+                } catch (error) { return ''; }
+            },
+
+            clearAppData: async () => {
+                document.cookie.split(";").forEach(c => document.cookie = `${c.split("=")[0].trim()}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`);
+                localStorage.clear();
+                sessionStorage.clear();
+                await Promise.all((await Dexie.getDatabaseNames()).map(name => new Dexie(name).delete()));
+                if ('caches' in window) await Promise.all((await caches.keys()).map(caches.delete));
+                location.reload();
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', initDB);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const exportKeysBtn = document.getElementById('exportKeysBtn');
+            const importKeysBtn = document.getElementById('importKeysBtn');
+            const fileInputKeys = document.getElementById('fileInputKeys');
+            if (exportKeysBtn) exportKeysBtn.addEventListener('click', backupEverything);
+            if (importKeysBtn && fileInputKeys) importKeysBtn.addEventListener('click', () => fileInputKeys.click());
+            if (fileInputKeys) fileInputKeys.addEventListener('change', function (e) {
+                if (this.files && this.files.length > 0) restoreBackup(this.files[0]);
+                this.value = '';
+            });
+        });
+
+        const App = {
+            setup() {
+                return {
+                    uuid, refId, type,
+                    selectedEmail, emails, messages, domains, messageToShow,
+                    aliasToCreate, selectedDomain,
+                    identities, shareDialog, keysDialog, importKeyVisible, importKeyInput,
+                    syncingMessages, progressDialog, activeDialog, confirmationDialog,
+                    callApi, utils,
+                };
+            }
+        };
+
+        createApp(App).mount('#app');
+    </script>
+
+    <!-- ==================== Users Table App (scoped, dark) ==================== -->
+    <div id="users-app">
+        <div class="card">
+            <h1>🧑‍💻 Таблица пользователей</h1>
+            <div class="sub">
+                Данные в <strong>localStorage</strong> · статусы <strong>легит/рейдж</strong>, <strong>бан/жив</strong> ·
+                примечание, галочка <strong>калиброван</strong> · <strong>импорт/экспорт</strong> · <strong>рандом ник</strong>
+            </div>
+
+            <!-- Форма добавления -->
+            <div class="form-row">
+                <div class="field">
+                    <label>📧 Почта</label>
+                    <input type="email" id="emailInput" placeholder="user@example.com" autocomplete="email">
+                </div>
+                <div class="field">
+                    <label>🔑 Логин</label>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <input type="text" id="loginInput" placeholder="login" autocomplete="username" style="flex:1;">
+                        <button class="btn btn-purple" id="randomNickBtn" style="padding: 8px 14px; font-size: 0.8rem; white-space: nowrap;">🎲 Рандом</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>🔒 Пароль</label>
+                    <input type="text" id="passwordInput" placeholder="пароль" autocomplete="new-password">
+                </div>
+                <div class="field" style="min-width: 110px; flex: 0.7;">
+                    <label>🎯 Статус</label>
+                    <select id="statusSelect">
+                        <option value="legit">✅ Легит</option>
+                        <option value="raider">⚠️ Рейдж</option>
+                    </select>
+                </div>
+                <div class="field" style="min-width: 110px; flex: 0.7;">
+                    <label>🚫 Бан</label>
+                    <select id="banSelect">
+                        <option value="alive">🟢 Жив</option>
+                        <option value="banned">🔴 Бан</option>
+                    </select>
+                </div>
+                <div class="field-checkbox">
+                    <label>
+                        <input type="checkbox" id="calibratedCheck">
+                        Калиброван
+                    </label>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="addBtn">➕ Добавить</button>
+                    <button class="btn btn-outline" id="resetBtn">🔄 Сброс</button>
+                </div>
+            </div>
+
+            <!-- Панель инструментов -->
+            <div class="toolbar">
+                <button class="btn btn-success" id="exportBtn">📤 Экспорт таблицы</button>
+                <button class="btn btn-orange" id="importBtn">📥 Импорт таблицы</button>
+                <input type="file" id="fileInput" class="file-input-hidden" accept=".json">
+                <span class="toolbar-hint">(заменить все данные таблицы)</span>
+                <span class="toolbar-sep"></span>
+                <button class="btn btn-success" id="exportKeysBtn">💾 Бэкап: ключи + таблица</button>
+                <button class="btn btn-orange" id="importKeysBtn">📂 Восстановить всё</button>
+                <input type="file" id="fileInputKeys" class="file-input-hidden" accept=".json">
+                <span class="toolbar-hint">(все ключи, почты, письма и таблица)</span>
+            </div>
+
+            <!-- Фильтры -->
+            <div style="margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                <div class="filter-group">
+                    <span class="filter-label">🔍 Статус:</span>
+                    <select id="filterStatus">
+                        <option value="all">Все</option>
+                        <option value="legit">✅ Легит</option>
+                        <option value="raider">⚠️ Рейдж</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">🚫 Бан:</span>
+                    <select id="filterBan">
+                        <option value="all">Все</option>
+                        <option value="alive">🟢 Жив</option>
+                        <option value="banned">🔴 Бан</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>
+                        <input type="checkbox" id="filterCalibrated">
+                        🎯 Только калиброванные
+                    </label>
+                </div>
+                <span class="toolbar-hint">Клик по статусу — переключить</span>
+            </div>
+
+            <!-- Таблица -->
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Почта</th>
+                            <th>Логин</th>
+                            <th>Пароль</th>
+                            <th>Статус</th>
+                            <th>Бан</th>
+                            <th style="text-align: center;">🎯 Калиброван</th>
+                            <th>Примечание</th>
+                            <th style="text-align: right;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- рендерится js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-actions">
+                <span class="count-badge" id="counter">👥 0 записей</span>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-danger" id="clearAllBtn">🗑️ Очистить всё</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- тост таблицы -->
+        <div id="tableToast" class="toast">✔ Готово</div>
+    </div>
+
+    <script>
+        (function () {
+            const emailInput = document.getElementById('emailInput');
+            const loginInput = document.getElementById('loginInput');
+            const passwordInput = document.getElementById('passwordInput');
+            const statusSelect = document.getElementById('statusSelect');
+            const banSelect = document.getElementById('banSelect');
+            const calibratedCheck = document.getElementById('calibratedCheck');
+            const addBtn = document.getElementById('addBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const clearAllBtn = document.getElementById('clearAllBtn');
+            const randomNickBtn = document.getElementById('randomNickBtn');
+            const tbody = document.getElementById('tableBody');
+            const counter = document.getElementById('counter');
+            const filterStatus = document.getElementById('filterStatus');
+            const filterBan = document.getElementById('filterBan');
+            const filterCalibrated = document.getElementById('filterCalibrated');
+            const exportBtn = document.getElementById('exportBtn');
+            const importBtn = document.getElementById('importBtn');
+            const fileInput = document.getElementById('fileInput');
+            const toast = document.getElementById('tableToast');
+
+            let saveTimeout = null;
+
+            function showToast(msg) {
+                toast.textContent = msg || '✔ Готово';
+                toast.classList.add('show');
+                clearTimeout(window.toastTimer);
+                window.toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            function isValidEmail(email) {
+                if (!email || email.trim() === '') return false;
+                const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                return re.test(email.trim());
+            }
+
+            function generateRandomNick() {
+                const upperLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const lowerLetters = 'abcdefghijklmnopqrstuvwxyz';
+                const digits = '0123456789';
+                let result = '';
+                for (let i = 0; i < 2; i++) {
+                    result += upperLetters[Math.floor(Math.random() * upperLetters.length)];
+                }
+                for (let i = 0; i < 4; i++) {
+                    result += lowerLetters[Math.floor(Math.random() * lowerLetters.length)];
+                }
+                for (let i = 0; i < 2; i++) {
+                    result += digits[Math.floor(Math.random() * digits.length)];
+                }
+                return result;
+            }
+
+            function getUsers() {
+                try {
+                    const raw = localStorage.getItem('usersTableData');
+                    if (!raw) return [];
+                    const parsed = JSON.parse(raw);
+                    return Array.isArray(parsed) ? parsed : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            function saveUsers(users) {
+                localStorage.setItem('usersTableData', JSON.stringify(users));
+            }
+
+            function getFilter() {
+                return {
+                    status: filterStatus.value,
+                    ban: filterBan.value,
+                    calibrated: filterCalibrated.checked
+                };
+            }
+
+            function render() {
+                const users = getUsers();
+                const filter = getFilter();
+                let filtered = users;
+
+                if (filter.status === 'legit') {
+                    filtered = filtered.filter(u => u.status === 'legit');
+                } else if (filter.status === 'raider') {
+                    filtered = filtered.filter(u => u.status === 'raider');
+                }
+
+                if (filter.ban === 'alive') {
+                    filtered = filtered.filter(u => u.ban === 'alive');
+                } else if (filter.ban === 'banned') {
+                    filtered = filtered.filter(u => u.ban === 'banned');
+                }
+
+                if (filter.calibrated) {
+                    filtered = filtered.filter(u => u.calibrated === true);
+                }
+
+                if (filtered.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="8" class="empty-msg">📭 Нет записей</td></tr>`;
+                    counter.textContent = `👥 ${users.length} записей (показано ${filtered.length})`;
+                    return;
+                }
+
+                let html = '';
+                filtered.forEach((user, idx) => {
+                    const realIndex = users.indexOf(user);
+                    const status = user.status || 'legit';
+                    const ban = user.ban || 'alive';
+                    const calibrated = user.calibrated === true;
+                    const statusLabel = status === 'legit' ? '✅ Легит' : '⚠️ Рейдж';
+                    const statusBadge = status === 'legit' ? 'badge-legit' : 'badge-raider';
+                    const banLabel = ban === 'alive' ? '🟢 Жив' : '🔴 Бан';
+                    const banBadge = ban === 'alive' ? 'badge-alive' : 'badge-banned';
+                    const note = user.note || '';
+
+                    html += `
+                    <tr>
+                        <td class="user-email">${escapeHtml(user.email || '')}</td>
+                        <td>${escapeHtml(user.login || '')}</td>
+                        <td>${escapeHtml(user.password || '')}</td>
+                        <td>
+                            <span class="badge ${statusBadge} toggle-status-btn" data-index="${realIndex}" data-type="status">${statusLabel}</span>
+                        </td>
+                        <td>
+                            <span class="badge ${banBadge} toggle-status-btn" data-index="${realIndex}" data-type="ban">${banLabel}</span>
+                        </td>
+                        <td class="checkbox-cell">
+                            <input type="checkbox" class="calibrated-checkbox" data-index="${realIndex}" ${calibrated ? 'checked' : ''}>
+                        </td>
+                        <td>
+                            <input class="note-input" type="text" value="${escapeHtml(note)}"
+                                   data-index="${realIndex}" placeholder="примечание"
+                                   style="min-width: 100px;">
+                        </td>
+                        <td style="text-align: right; white-space: nowrap;">
+                            <button class="copy-btn" data-type="login" data-index="${realIndex}">📋 логин</button>
+                            <button class="copy-btn" data-type="password" data-index="${realIndex}">📋 пароль</button>
+                            <button class="copy-btn delete" data-type="delete" data-index="${realIndex}">✕</button>
+                        </td>
+                    </tr>
+                `;
+                });
+                tbody.innerHTML = html;
+                counter.textContent = `👥 ${users.length} записей (показано ${filtered.length})`;
+
+                tbody.querySelectorAll('[data-type]').forEach(btn => {
+                    btn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        const type = this.getAttribute('data-type');
+                        const idx = parseInt(this.getAttribute('data-index'), 10);
+                        const users = getUsers();
+                        if (idx < 0 || idx >= users.length) return;
+
+                        if (type === 'delete') {
+                            if (confirm(`Удалить запись "${users[idx].login || 'без логина'}" ?`)) {
+                                users.splice(idx, 1);
+                                saveUsers(users);
+                                render();
+                                showToast('🗑️ Удалено');
+                            }
+                            return;
+                        }
+
+                        const user = users[idx];
+                        let text = '';
+                        if (type === 'login') text = user.login || '';
+                        else if (type === 'password') text = user.password || '';
+                        else return;
+
+                        if (!text) {
+                            showToast('⚠️ Поле пустое');
+                            return;
+                        }
+
+                        navigator.clipboard.writeText(text).then(() => {
+                            showToast(`✔ ${type === 'login' ? 'Логин' : 'Пароль'} скопирован`);
+                        }).catch(() => {
+                            const textarea = document.createElement('textarea');
+                            textarea.value = text;
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
+                            showToast(`✔ ${type === 'login' ? 'Логин' : 'Пароль'} скопирован`);
+                        });
+                    });
+                });
+
+                tbody.querySelectorAll('.toggle-status-btn').forEach(el => {
+                    el.addEventListener('click', function () {
+                        const idx = parseInt(this.getAttribute('data-index'), 10);
+                        const type = this.getAttribute('data-type');
+                        const users = getUsers();
+                        if (idx < 0 || idx >= users.length) return;
+
+                        if (type === 'status') {
+                            const current = users[idx].status || 'legit';
+                            users[idx].status = (current === 'legit' ? 'raider' : 'legit');
+                            saveUsers(users);
+                            render();
+                            showToast(`🔄 Статус изменён на ${users[idx].status === 'legit' ? 'Легит' : 'Рейдж'}`);
+                        } else if (type === 'ban') {
+                            const current = users[idx].ban || 'alive';
+                            users[idx].ban = (current === 'alive' ? 'banned' : 'alive');
+                            saveUsers(users);
+                            render();
+                            showToast(`🔄 Бан изменён на ${users[idx].ban === 'alive' ? 'Жив' : 'Бан'}`);
+                        }
+                    });
+                });
+
+                tbody.querySelectorAll('.calibrated-checkbox').forEach(cb => {
+                    cb.addEventListener('change', function () {
+                        const idx = parseInt(this.getAttribute('data-index'), 10);
+                        const users = getUsers();
+                        if (idx < 0 || idx >= users.length) return;
+                        users[idx].calibrated = this.checked;
+                        saveUsers(users);
+                        showToast(this.checked ? '🎯 Калиброван ✓' : '🎯 Калиброван ✗');
+                    });
+                });
+
+                tbody.querySelectorAll('.note-input').forEach(input => {
+                    const idx = parseInt(input.getAttribute('data-index'), 10);
+
+                    input.addEventListener('change', function () {
+                        const users = getUsers();
+                        if (idx < 0 || idx >= users.length) return;
+                        users[idx].note = this.value.trim();
+                        saveUsers(users);
+                        showToast('💾 Примечание сохранено');
+                    });
+
+                    input.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            this.blur();
+                            const users = getUsers();
+                            if (idx < 0 || idx >= users.length) return;
+                            users[idx].note = this.value.trim();
+                            saveUsers(users);
+                            showToast('💾 Примечание сохранено');
+                        }
+                    });
+
+                    input.addEventListener('input', function () {
+                        clearTimeout(saveTimeout);
+                        saveTimeout = setTimeout(() => {
+                            const users = getUsers();
+                            if (idx < 0 || idx >= users.length) return;
+                            users[idx].note = this.value.trim();
+                            saveUsers(users);
+                        }, 800);
+                    });
+                });
+            }
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
+            }
+
+            function addUser() {
+                const email = emailInput.value.trim();
+                const login = loginInput.value.trim();
+                const password = passwordInput.value.trim();
+                const status = statusSelect.value;
+                const ban = banSelect.value;
+                const calibrated = calibratedCheck.checked;
+
+                if (!isValidEmail(email)) {
+                    emailInput.classList.add('invalid');
+                    showToast('⚠️ Введите корректный email');
+                    return;
+                } else {
+                    emailInput.classList.remove('invalid');
+                }
+
+                if (!login) {
+                    showToast('⚠️ Введите логин');
+                    loginInput.focus();
+                    return;
+                }
+                if (!password) {
+                    showToast('⚠️ Введите пароль');
+                    passwordInput.focus();
+                    return;
+                }
+
+                const users = getUsers();
+                if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                    showToast('⚠️ Такая почта уже есть');
+                    emailInput.classList.add('invalid');
+                    return;
+                }
+
+                users.push({
+                    email,
+                    login,
+                    password,
+                    status,
+                    ban,
+                    calibrated,
+                    note: ''
+                });
+                saveUsers(users);
+                render();
+                emailInput.value = '';
+                loginInput.value = '';
+                passwordInput.value = '';
+                calibratedCheck.checked = false;
+                emailInput.classList.remove('invalid');
+                showToast('✅ Добавлен');
+            }
+
+            function setRandomNick() {
+                loginInput.value = generateRandomNick();
+                showToast('🎲 Сгенерирован случайный ник');
+            }
+
+            function exportData() {
+                const users = getUsers();
+                if (users.length === 0) {
+                    showToast('⚠️ Нет данных для экспорта');
+                    return;
+                }
+                const json = JSON.stringify(users, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `users_${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('📤 Экспорт выполнен');
+            }
+
+            function importData(file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (!Array.isArray(data)) {
+                            showToast('⚠️ Неверный формат: ожидается массив');
+                            return;
+                        }
+                        if (data.length > 0 && (!data[0].email || !data[0].login)) {
+                            showToast('⚠️ Неверный формат: отсутствуют обязательные поля');
+                            return;
+                        }
+                        if (confirm(`Импортировать ${data.length} записей? Текущие данные будут заменены.`)) {
+                            saveUsers(data);
+                            render();
+                            showToast(`📥 Импортировано ${data.length} записей`);
+                        }
+                    } catch (err) {
+                        showToast('⚠️ Ошибка чтения файла: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+                fileInput.value = '';
+            }
+
+            function resetToDemo() {
+                const demo = [
+                    { email: 'alex@example.com', login: 'alex_123', password: 'qwerty', status: 'legit', ban: 'alive', calibrated: true, note: 'активный' },
+                    { email: 'maria@work.io', login: 'maria_w', password: 'pass987', status: 'raider', ban: 'banned', calibrated: false, note: 'нарушение' },
+                    { email: 'john.doe@mail.org', login: 'johnd', password: 'secure456', status: 'legit', ban: 'alive', calibrated: true, note: 'проверен' },
+                    { email: 'hacker@dark.net', login: 'shadow_x', password: 'hackme', status: 'raider', ban: 'banned', calibrated: false, note: 'подозрительный' },
+                    { email: 'test@test.com', login: 'tester', password: '123456', status: 'legit', ban: 'alive', calibrated: false, note: '' }
+                ];
+                saveUsers(demo);
+                render();
+                showToast('🔄 Демо загружены');
+            }
+
+            function clearAll() {
+                if (confirm('Удалить все записи?')) {
+                    saveUsers([]);
+                    render();
+                    showToast('🗑️ Всё очищено');
+                }
+            }
+
+            function init() {
+                if (!localStorage.getItem('usersTableData')) {
+                    resetToDemo();
+                } else {
+                    render();
+                }
+
+                addBtn.addEventListener('click', addUser);
+                resetBtn.addEventListener('click', resetToDemo);
+                clearAllBtn.addEventListener('click', clearAll);
+                randomNickBtn.addEventListener('click', setRandomNick);
+                filterStatus.addEventListener('change', render);
+                filterBan.addEventListener('change', render);
+                filterCalibrated.addEventListener('change', render);
+
+                exportBtn.addEventListener('click', exportData);
+
+                importBtn.addEventListener('click', () => fileInput.click());
+                fileInput.addEventListener('change', function (e) {
+                    if (this.files && this.files.length > 0) {
+                        importData(this.files[0]);
+                    }
+                });
+
+                [emailInput, loginInput, passwordInput].forEach(inp => {
+                    inp.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            addUser();
+                        }
+                    });
+                });
+
+                emailInput.addEventListener('input', () => emailInput.classList.remove('invalid'));
+            }
+
+            init();
+
+            window.showUsersToast = showToast;
+            window.renderUsersTable = render;
+        })();
+    </script>
+
+    <script>
+        (function () {
+            function switchView(name) {
+                const mail = document.getElementById('app');
+                const users = document.getElementById('users-app');
+                if (mail) mail.style.display = name === 'mail' ? '' : 'none';
+                if (users) users.style.display = name === 'users' ? '' : 'none';
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
+                try { localStorage.setItem('tm_view', name); } catch (e) { }
+            }
+
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchView(btn.dataset.view));
+            });
+
+            let saved = 'mail';
+            try { saved = localStorage.getItem('tm_view') === 'users' ? 'users' : 'mail'; } catch (e) { }
+            switchView(saved);
+        })();
+    </script>
+
+</body>
+
+</html>
